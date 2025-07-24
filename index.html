@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Pathways - Tarrant County College</title>
+    <meta name="description" content="Interactive guide for TCC students to explore and plan AI-focused career pathways through Associate of Applied Science programs">
+    
+    <!-- External Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    
+    <style>
+        /* Custom styles for PDF export optimization */
+        @media print {
+            body { -webkit-print-color-adjust: exact; }
+            .no-print { display: none !important; }
+        }
+        
+        .drag-over {
+            background-color: #e0f2fe;
+            border: 2px dashed #0288d1;
+        }
+        
+        .course-card {
+            transition: all 0.3s ease;
+            cursor: grab;
+        }
+        
+        .course-card:active {
+            cursor: grabbing;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .tier-foundational { border-left: 4px solid #10b981; }
+        .tier-core { border-left: 4px solid #3b82f6; }
+        .tier-advanced { border-left: 4px solid #8b5cf6; }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #10b981;
+            transition: width 0.3s ease;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% - 1rem);
+            background-color: #e5e7eb;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .filter-active {
+            background-color: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Open in browser; no server required -->
+    
+    <!-- Header -->
+    <header class="bg-blue-900 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-graduation-cap text-3xl"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">AI Career Pathways</h1>
+                        <p class="text-blue-200">Tarrant County College</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#overview" class="hover:text-blue-200 transition-colors">Overview</a>
+                    <a href="#courses" class="hover:text-blue-200 transition-colors">Courses</a>
+                    <a href="#timeline" class="hover:text-blue-200 transition-colors">Timeline</a>
+                    <a href="#planner" class="hover:text-blue-200 transition-colors">My Plan</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Overview Section -->
+        <section id="overview" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                            <i class="fas fa-robot text-blue-600 mr-2"></i>
+                            Your Path to AI Excellence
+                        </h2>
+                        <p class="text-gray-600 mb-6">
+                            Chart your journey toward a successful career in Artificial Intelligence through TCC's 
+                            comprehensive Associate of Applied Science programs. Our structured pathway combines 
+                            programming expertise, mathematical foundations, and hands-on experience.
+                        </p>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                            <h3 class="font-semibold text-blue-900 mb-2">Recommended Program:</h3>
+                            <p class="text-blue-800">Information Technology - Programming, AAS</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4">Program Highlights</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Core Programming Skills (C++, Java, Python)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Mathematical Foundation (Statistics, Calculus, Linear Algebra)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Data Management & Analysis</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span>Hands-on AI/ML Experience</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Catalog Section -->
+        <section id="courses" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                    <i class="fas fa-book text-blue-600 mr-2"></i>
+                    Course Catalog
+                </h2>
+                
+                <!-- Filter Panel -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                    <div class="flex flex-wrap gap-4 items-center">
+                        <label class="font-semibold text-gray-700">Filter by:</label>
+                        <div class="flex gap-2">
+                            <button onclick="filterCourses('all')" class="px-4 py-2 rounded-md bg-blue-600 text-white filter-btn" data-filter="all">All</button>
+                            <button onclick="filterCourses('foundational')" class="px-4 py-2 rounded-md bg-gray-200 text-gray-700 filter-btn" data-filter="foundational">Foundational</button>
+                            <button onclick="filterCourses('core')" class="px-4 py-2 rounded-md bg-gray-200 text-gray-700 filter-btn" data-filter="core">Core</button>
+                            <button onclick="filterCourses('advanced')" class="px-4 py-2 rounded-md bg-gray-200 text-gray-700 filter-btn" data-filter="advanced">Advanced</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Cards Grid -->
+                <div id="courseGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Course cards will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                    <i class="fas fa-calendar-alt text-blue-600 mr-2"></i>
+                    Recommended Timeline
+                </h2>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Year 1 -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-green-700">
+                            <i class="fas fa-seedling mr-2"></i>
+                            Year 1: Foundation Building
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="timeline-item">
+                                <h4 class="font-semibold">Fall Semester</h4>
+                                <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                    <li>• COSC 1301 - Introduction to Computing</li>
+                                    <li>• COSC 1436 - Programming Fundamentals I</li>
+                                    <li>• MATH 1342 - Elementary Statistical Methods</li>
+                                    <li>• ENGL 1301 - Composition I</li>
+                                </ul>
+                            </div>
+                            <div class="timeline-item">
+                                <h4 class="font-semibold">Spring Semester</h4>
+                                <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                    <li>• COSC 1437 - Programming Fundamentals II</li>
+                                    <li>• MATH 2413 - Calculus I</li>
+                                    <li>• ENGL 1302 - Composition II</li>
+                                    <li>• HIST 1301 - United States History I</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Year 2 -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-700">
+                            <i class="fas fa-cogs mr-2"></i>
+                            Year 2: Core Development
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="timeline-item">
+                                <h4 class="font-semibold">Fall Semester</h4>
+                                <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                    <li>• COSC 2436 - Programming Fundamentals III</li>
+                                    <li>• ITSE 2417 - Java Programming</li>
+                                    <li>• MATH 2318 - Linear Algebra</li>
+                                    <li>• GOVT 2305 - Federal Government</li>
+                                </ul>
+                            </div>
+                            <div class="timeline-item">
+                                <h4 class="font-semibold">Spring Semester</h4>
+                                <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                                    <li>• ITSE 2309 - Database Programming</li>
+                                    <li>• MATH 2305 - Discrete Mathematics</li>
+                                    <li>• ITSE 2375 - Data Science & AI - Python</li>
+                                    <li>• ITSC 2439 - Capstone Project</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plan Builder Section -->
+        <section id="planner" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                    <i class="fas fa-tasks text-blue-600 mr-2"></i>
+                    My AI Career Plan
+                </h2>
+                
+                <!-- Progress Overview -->
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-green-800 mb-2">Foundational</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="foundationalProgress" style="width: 0%"></div>
+                        </div>
+                        <p class="text-sm text-green-600 mt-2" id="foundationalCount">0 of 5 courses</p>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-blue-800 mb-2">Core</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-blue-600" id="coreProgress" style="width: 0%"></div>
+                        </div>
+                        <p class="text-sm text-blue-600 mt-2" id="coreCount">0 of 7 courses</p>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-purple-800 mb-2">Advanced</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill bg-purple-600" id="advancedProgress" style="width: 0%"></div>
+                        </div>
+                        <p class="text-sm text-purple-600 mt-2" id="advancedCount">0 of 4 courses</p>
+                    </div>
+                </div>
+
+                <!-- Drag and Drop Planning Area -->
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Available Courses -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Available Courses</h3>
+                        <div id="availableCourses" class="space-y-3 min-h-64 bg-gray-50 rounded-lg p-4">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- My Plan -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">My Plan</h3>
+                        <div id="myPlan" class="space-y-3 min-h-64 bg-blue-50 rounded-lg p-4 border-2 border-dashed border-blue-300">
+                            <p class="text-gray-500 text-center py-8">Drag courses here to build your plan</p>
+                        </div>
+                        <div class="mt-4 flex gap-4">
+                            <button onclick="savePlan()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors">
+                                <i class="fas fa-save mr-2"></i>Save Plan
+                            </button>
+                            <button onclick="clearPlan()" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors">
+                                <i class="fas fa-trash mr-2"></i>Clear Plan
+                            </button>
+                            <button onclick="generateShareLink()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                                <i class="fas fa-share mr-2"></i>Share Plan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section id="statistics" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                    <i class="fas fa-chart-bar text-blue-600 mr-2"></i>
+                    Program Statistics
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Course Distribution</h3>
+                        <div style="height: 300px;">
+                            <canvas id="courseChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Career Outcomes</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span>Software Developer</span>
+                                <span class="font-semibold text-green-600">$75,000+</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span>Data Analyst</span>
+                                <span class="font-semibold text-green-600">$65,000+</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span>AI/ML Engineer</span>
+                                <span class="font-semibold text-green-600">$85,000+</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span>Database Administrator</span>
+                                <span class="font-semibold text-green-600">$70,000+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                    <i class="fas fa-link text-blue-600 mr-2"></i>
+                    Additional Resources
+                </h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-blue-800 mb-2">
+                            <i class="fas fa-university mr-2"></i>
+                            Academic Resources
+                        </h3>
+                        <ul class="text-sm text-blue-600 space-y-1">
+                            <li>• <a href="https://www.tccd.edu/" target="_blank" class="hover:underline">TCC Main Website</a></li>
+                            <li>• <a href="https://catalog.tccd.edu/" target="_blank" class="hover:underline">Course Catalog</a></li>
+                            <li>• <a href="https://www.tccd.edu/academics/courses-and-programs/programs-a-z/credit/info-tech-programming/" target="_blank" class="hover:underline">IT Programming Program</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-green-800 mb-2">
+                            <i class="fas fa-certificate mr-2"></i>
+                            Certifications
+                        </h3>
+                        <ul class="text-sm text-green-600 space-y-1">
+                            <li>• AWS ML Specialty</li>
+                            <li>• Google Cloud ML Engineer</li>
+                            <li>• Microsoft Azure AI Engineer</li>
+                            <li>• CompTIA Data+</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-purple-800 mb-2">
+                            <i class="fas fa-laptop-code mr-2"></i>
+                            Online Learning
+                        </h3>
+                        <ul class="text-sm text-purple-600 space-y-1">
+                            <li>• Coursera AI/ML Courses</li>
+                            <li>• edX Data Science Programs</li>
+                            <li>• Udacity AI Nanodegree</li>
+                            <li>• Khan Academy Statistics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-sm">&copy; 2024 Tarrant County College. All rights reserved.</p>
+                    <p class="text-xs text-gray-400 mt-1">Designed to help students plan their AI career journey</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Course data structure
+        const courses = [
+            // Foundational Courses
+            {
+                id: 'cosc1301',
+                code: 'COSC 1301',
+                title: 'Introduction to Computing',
+                description: 'Overview of computer hardware, software, and applications. Introduction to programming concepts and digital literacy.',
+                tier: 'foundational',
+                credits: 3,
+                prerequisites: [],
+                semester: 'Fall/Spring',
+                modality: 'Online/In-person'
+            },
+            {
+                id: 'cosc1436',
+                code: 'COSC 1436',
+                title: 'Programming Fundamentals I',
+                description: 'Structured programming using control structures, data types, functions, and arrays. Introduction to debugging and problem-solving.',
+                tier: 'foundational',
+                credits: 4,
+                prerequisites: ['COSC 1301'],
+                semester: 'Fall/Spring',
+                modality: 'In-person'
+            },
+            {
+                id: 'math1342',
+                code: 'MATH 1342',
+                title: 'Elementary Statistical Methods',
+                description: 'Probability, descriptive statistics, hypothesis testing, and statistical inference. Foundation for data analysis.',
+                tier: 'foundational',
+                credits: 3,
+                prerequisites: ['College Algebra'],
+                semester: 'Fall/Spring',
+                modality: 'Online/In-person'
+            },
+            {
+                id: 'math2413',
+                code: 'MATH 2413',
+                title: 'Calculus I',
+                description: 'Limits, derivatives, integrals, and the Fundamental Theorem of Calculus. Essential for optimization in AI.',
+                tier: 'foundational',
+                credits: 4,
+                prerequisites: ['Precalculus'],
+                semester: 'Fall/Spring',
+                modality: 'In-person'
+            },
+            {
+                id: 'math2318',
+                code: 'MATH 2318',
+                title: 'Linear Algebra',
+                description: 'Vector spaces, matrices, determinants, eigenvalues, and linear transformations. Critical for machine learning.',
+                tier: 'foundational',
+                credits: 3,
+                prerequisites: ['MATH 2413'],
+                semester: 'Fall/Spring',
+                modality: 'In-person'
+            },
+            
+            // Core Courses
+            {
+                id: 'cosc1437',
+                code: 'COSC 1437',
+                title: 'Programming Fundamentals II',
+                description: 'Object-oriented programming, classes, inheritance, and polymorphism. Advanced data structures and algorithms.',
+                tier: 'core',
+                credits: 4,
+                prerequisites: ['COSC 1436'],
+                semester: 'Fall/Spring',
+                modality: 'In-person'
+            },
+            {
+                id: 'cosc2436',
+                code: 'COSC 2436',
+                title: 'Programming Fundamentals III',
+                description: 'Advanced data structures including trees, graphs, and hash tables. Algorithm analysis and complexity.',
+                tier: 'core',
+                credits: 4,
+                prerequisites: ['COSC 1437'],
+                semester: 'Fall/Spring',
+                modality: 'In-person'
+            },
+            {
+                id: 'itse2417',
+                code: 'ITSE 2417',
+                title: 'Java Programming',
+                description: 'Advanced Java programming including GUI development, exception handling, and multithreading.',
+                tier: 'core',
+                credits: 4,
+                prerequisites: ['COSC 1437'],
+                semester: 'Fall/Spring',
+                modality: 'In-person'
+            },
+            {
+                id: 'itse2309',
+                code: 'ITSE 2309',
+                title: 'Database Programming',
+                description: 'Database design, SQL, normalization, and application development. Essential for data management in AI.',
+                tier: 'core',
+                credits: 3,
+                prerequisites: ['COSC 1437'],
+                semester: 'Fall/Spring',
+                modality: 'In-person'
+            },
+            {
+                id: 'math2305',
+                code: 'MATH 2305',
+                title: 'Discrete Mathematics',
+                description: 'Logic, set theory, combinatorics, graph theory, and proof techniques. Foundation for algorithm design.',
+                tier: 'core',
+                credits: 3,
+                prerequisites: ['MATH 2413'],
+                semester: 'Fall/Spring',
+                modality: 'In-person'
+            },
+            {
+                id: 'itse1479',
+                code: 'ITSE 1479',
+                title: 'Introduction to Scripting Languages',
+                description: 'Python programming for automation, data processing, and system administration.',
+                tier: 'core',
+                credits: 4,
+                prerequisites: ['COSC 1436'],
+                semester: 'Fall/Spring',
+                modality: 'In-person'
+            },
+            {
+                id: 'cpmt1403',
+                code: 'CPMT 1403',
+                title: 'Computer Architecture',
+                description: 'Computer organization, processor design, memory systems, and performance optimization.',
+                tier: 'core',
+                credits: 4,
+                prerequisites: ['COSC 1436'],
+                semester: 'Fall/Spring',
+                modality: 'In-person'
+            },
+            
+            // Advanced Courses
+            {
+                id: 'itse2375',
+                code: 'ITSE 2375',
+                title: 'Data Science & AI - Python',
+                description: 'Machine learning fundamentals using Python, NumPy, Pandas, and scikit-learn. Supervised and unsupervised learning.',
+                tier: 'advanced',
+                credits: 3,
+                prerequisites: ['ITSE 1479', 'MATH 1342'],
+                semester: 'Spring',
+                modality: 'In-person'
+            },
+            {
+                id: 'itsc2439',
+                code: 'ITSC 2439',
+                title: 'Capstone Project',
+                description: 'Comprehensive project integrating programming, data analysis, and AI concepts. Portfolio development.',
+                tier: 'advanced',
+                credits: 4,
+                prerequisites: ['Senior Standing'],
+                semester: 'Spring',
+                modality: 'In-person'
+            },
+            {
+                id: 'itse2445',
+                code: 'ITSE 2445',
+                title: 'Advanced Database Systems',
+                description: 'Big data technologies, NoSQL databases, and data warehousing. Advanced query optimization.',
+                tier: 'advanced',
+                credits: 4,
+                prerequisites: ['ITSE 2309'],
+                semester: 'Fall',
+                modality: 'In-person'
+            },
+            {
+                id: 'cosc2325',
+                code: 'COSC 2325',
+                title: 'Computer Organization',
+                description: 'Advanced computer architecture, parallel processing, and performance optimization for AI workloads.',
+                tier: 'advanced',
+                credits: 3,
+                prerequisites: ['CPMT 1403'],
+                semester: 'Fall',
+                modality: 'In-person'
+            }
+        ];
+
+        // Global variables
+        let myPlan = [];
+        let currentFilter = 'all';
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPlan();
+            renderCourses();
+            updateProgress();
+            initializeDragDrop();
+            initializeChart();
+            
+            // Load plan from URL parameters if present
+            const urlParams = new URLSearchParams(window.location.search);
+            const sharedPlan = urlParams.get('plan');
+            if (sharedPlan) {
+                try {
+                    myPlan = JSON.parse(atob(sharedPlan));
+                    updatePlanDisplay();
+                    updateProgress();
+                } catch (e) {
+                    console.error('Invalid shared plan URL');
+                }
+            }
+        });
+
+        // Course filtering
+        function filterCourses(tier) {
+            currentFilter = tier;
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('filter-active', 'bg-blue-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            
+            const activeBtn = document.querySelector(`[data-filter="${tier}"]`);
+            activeBtn.classList.add('filter-active', 'bg-blue-600', 'text-white');
+            activeBtn.classList.remove('bg-gray-200', 'text-gray-700');
+            
+            renderCourses();
+        }
+
+        // Render course cards
+        function renderCourses() {
+            const grid = document.getElementById('courseGrid');
+            const filteredCourses = currentFilter === 'all' ? courses : courses.filter(course => course.tier === currentFilter);
+            
+            grid.innerHTML = filteredCourses.map(course => `
+                <div class="course-card bg-white rounded-lg shadow-md p-6 tier-${course.tier}" draggable="true" data-course-id="${course.id}">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-900">${course.code}</h3>
+                            <p class="text-sm text-gray-500 capitalize">${course.tier}</p>
+                        </div>
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">${course.credits} credits</span>
+                    </div>
+                    <h4 class="font-medium text-gray-800 mb-2">${course.title}</h4>
+                    <p class="text-sm text-gray-600 mb-4">${course.description}</p>
+                    <div class="text-xs text-gray-500 space-y-1">
+                        <div><i class="fas fa-calendar mr-1"></i>${course.semester}</div>
+                        <div><i class="fas fa-laptop mr-1"></i>${course.modality}</div>
+                        ${course.prerequisites.length > 0 ? `<div><i class="fas fa-link mr-1"></i>Prerequisites: ${course.prerequisites.join(', ')}</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize drag and drop
+        function initializeDragDrop() {
+            const availableCourses = document.getElementById('availableCourses');
+            const myPlanContainer = document.getElementById('myPlan');
+            
+            // Make available courses sortable
+            new Sortable(availableCourses, {
+                group: {
+                    name: 'courses',
+                    pull: 'clone',
+                    put: false
+                },
+                sort: false,
+                onStart: function(evt) {
+                    evt.item.style.opacity = '0.5';
+                },
+                onEnd: function(evt) {
+                    evt.item.style.opacity = '1';
+                }
+            });
+            
+            // Make my plan sortable
+            new Sortable(myPlanContainer, {
+                group: 'courses',
+                onAdd: function(evt) {
+                    const courseId = evt.item.dataset.courseId;
+                    if (courseId && !myPlan.find(c => c.id === courseId)) {
+                        const course = courses.find(c => c.id === courseId);
+                        if (course) {
+                            myPlan.push(course);
+                            updatePlanDisplay();
+                            updateProgress();
+                        }
+                    }
+                },
+                onRemove: function(evt) {
+                    const courseId = evt.item.dataset.courseId;
+                    myPlan = myPlan.filter(c => c.id !== courseId);
+                    updatePlanDisplay();
+                    updateProgress();
+                },
+                onSort: function(evt) {
+                    // Reorder courses in myPlan array
+                    const courseId = evt.item.dataset.courseId;
+                    const course = myPlan.find(c => c.id === courseId);
+                    if (course) {
+                        myPlan.splice(myPlan.indexOf(course), 1);
+                        myPlan.splice(evt.newIndex, 0, course);
+                    }
+                }
+            });
+            
+            updateAvailableCourses();
+            updatePlanDisplay();
+        }
+
+        // Update available courses display
+        function updateAvailableCourses() {
+            const availableCourses = document.getElementById('availableCourses');
+            const availableCoursesData = courses.filter(course => !myPlan.find(p => p.id === course.id));
+            
+            availableCourses.innerHTML = availableCoursesData.map(course => `
+                <div class="course-card bg-white rounded-lg shadow-sm p-4 tier-${course.tier}" data-course-id="${course.id}">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4 class="font-medium text-gray-800">${course.code}</h4>
+                            <p class="text-sm text-gray-600">${course.title}</p>
+                        </div>
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">${course.credits}cr</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update plan display
+        function updatePlanDisplay() {
+            const myPlanContainer = document.getElementById('myPlan');
+            
+            if (myPlan.length === 0) {
+                myPlanContainer.innerHTML = '<p class="text-gray-500 text-center py-8">Drag courses here to build your plan</p>';
+                return;
+            }
+            
+            myPlanContainer.innerHTML = myPlan.map(course => `
+                <div class="course-card bg-white rounded-lg shadow-sm p-4 tier-${course.tier}" data-course-id="${course.id}">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4 class="font-medium text-gray-800">${course.code}</h4>
+                            <p class="text-sm text-gray-600">${course.title}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">${course.credits}cr</span>
+                            <button onclick="removeCourse('${course.id}')" class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            updateAvailableCourses();
+        }
+
+        // Remove course from plan
+        function removeCourse(courseId) {
+            myPlan = myPlan.filter(c => c.id !== courseId);
+            updatePlanDisplay();
+            updateProgress();
+        }
+
+        // Update progress indicators
+        function updateProgress() {
+            const foundational = myPlan.filter(c => c.tier === 'foundational').length;
+            const core = myPlan.filter(c => c.tier === 'core').length;
+            const advanced = myPlan.filter(c => c.tier === 'advanced').length;
+            
+            const foundationalTotal = courses.filter(c => c.tier === 'foundational').length;
+            const coreTotal = courses.filter(c => c.tier === 'core').length;
+            const advancedTotal = courses.filter(c => c.tier === 'advanced').length;
+            
+            // Update progress bars
+            document.getElementById('foundationalProgress').style.width = `${(foundational / foundationalTotal) * 100}%`;
+            document.getElementById('coreProgress').style.width = `${(core / coreTotal) * 100}%`;
+            document.getElementById('advancedProgress').style.width = `${(advanced / advancedTotal) * 100}%`;
+            
+            // Update counts
+            document.getElementById('foundationalCount').textContent = `${foundational} of ${foundationalTotal} courses`;
+            document.getElementById('coreCount').textContent = `${core} of ${coreTotal} courses`;
+            document.getElementById('advancedCount').textContent = `${advanced} of ${advancedTotal} courses`;
+        }
+
+        // Save plan to localStorage
+        function savePlan() {
+            localStorage.setItem('tcc-ai-plan', JSON.stringify(myPlan));
+            
+            // Show success message
+            const originalText = event.target.innerHTML;
+            event.target.innerHTML = '<i class="fas fa-check mr-2"></i>Saved!';
+            event.target.classList.add('bg-green-700');
+            
+            setTimeout(() => {
+                event.target.innerHTML = originalText;
+                event.target.classList.remove('bg-green-700');
+            }, 2000);
+        }
+
+        // Load plan from localStorage
+        function loadPlan() {
+            const savedPlan = localStorage.getItem('tcc-ai-plan');
+            if (savedPlan) {
+                try {
+                    myPlan = JSON.parse(savedPlan);
+                } catch (e) {
+                    console.error('Failed to load saved plan');
+                    myPlan = [];
+                }
+            }
+        }
+
+        // Clear plan
+        function clearPlan() {
+            if (confirm('Are you sure you want to clear your plan?')) {
+                myPlan = [];
+                updatePlanDisplay();
+                updateProgress();
+                localStorage.removeItem('tcc-ai-plan');
+            }
+        }
+
+        // Generate shareable link
+        function generateShareLink() {
+            const planData = btoa(JSON.stringify(myPlan));
+            const shareUrl = `${window.location.origin}${window.location.pathname}?plan=${planData}`;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                const originalText = event.target.innerHTML;
+                event.target.innerHTML = '<i class="fas fa-check mr-2"></i>Link Copied!';
+                event.target.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    event.target.innerHTML = originalText;
+                    event.target.classList.remove('bg-green-600');
+                }, 2000);
+            }).catch(() => {
+                // Fallback for older browsers
+                prompt('Copy this link to share your plan:', shareUrl);
+            });
+        }
+
+        // Initialize Chart.js
+        function initializeChart() {
+            const ctx = document.getElementById('courseChart').getContext('2d');
+            const foundationalCount = courses.filter(c => c.tier === 'foundational').length;
+            const coreCount = courses.filter(c => c.tier === 'core').length;
+            const advancedCount = courses.filter(c => c.tier === 'advanced').length;
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Foundational', 'Core', 'Advanced'],
+                    datasets: [{
+                        data: [foundationalCount, coreCount, advancedCount],
+                        backgroundColor: ['#10b981', '#3b82f6', '#8b5cf6'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Close any modals or reset filters
+                filterCourses('all');
+            }
+        });
+
+        // Initialize accessibility features
+        function initializeAccessibility() {
+            // Add ARIA labels to interactive elements
+            document.querySelectorAll('.course-card').forEach(card => {
+                const courseCode = card.querySelector('h3').textContent;
+                const courseTitle = card.querySelector('h4').textContent;
+                card.setAttribute('aria-label', `${courseCode}: ${courseTitle}`);
+                card.setAttribute('tabindex', '0');
+            });
+            
+            // Add keyboard support for drag and drop
+            document.querySelectorAll('.course-card').forEach(card => {
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        // Simulate click/drag behavior
+                        const courseId = this.dataset.courseId;
+                        const course = courses.find(c => c.id === courseId);
+                        if (course && !myPlan.find(c => c.id === courseId)) {
+                            myPlan.push(course);
+                            updatePlanDisplay();
+                            updateProgress();
+                        }
+                    }
+                });
+            });
+        }
+
+        // Initialize accessibility on load
+        document.addEventListener('DOMContentLoaded', initializeAccessibility);
+    </script>
+</body>
+</html>
